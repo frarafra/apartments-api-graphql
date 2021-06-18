@@ -1,0 +1,36 @@
+
+query {
+  me {
+    username
+  }
+}
+
+mutation {
+  createUser(username: "Daniel") {
+		id
+  }
+}
+
+mutation {
+  login(username: "Yo-yo", password: "secret") {
+	value
+  }
+}
+
+mutation {
+  addApartment(name: "Begur Platja", address: "Passeig Marítim, 3", city: "Begur", country: "Spain", rooms: 4) {
+	id
+  }
+}
+
+mutation {
+  markAsFavorite(apartment: "Begur Platja") {
+	id
+  }
+}
+
+=======
+
+{
+  "Authorization": "bearer " + token,
+}
