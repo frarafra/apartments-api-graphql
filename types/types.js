@@ -25,6 +25,7 @@ module.exports = gql`
     me: User
     allApartments(city: String, country: String, rooms: Int): [Apartment!]!
     allFavorites: [String]
+    nearestApartment(locationX: Float!, locationY: Float!, distance: Int!): [Apartment]
   }
   
   type Mutation {

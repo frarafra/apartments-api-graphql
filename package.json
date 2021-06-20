@@ -12,7 +12,9 @@
   "author": "Francesc Ara",
   "license": "ISC",
   "dependencies": {
+    "@turf/turf": "^6.4.0",
     "apollo-server": "^2.25.1",
+    "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.0",
     "jsonwebtoken": "^8.5.1",

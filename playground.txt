@@ -21,6 +21,12 @@ query {
   allFavorites
 }
 
+query {
+  nearestApartment(locationX: 3, locationY: 41, distance: 150) {
+    name
+  }
+}
+
 mutation {
   createUser(username: "Daniel") {
 		id
@@ -48,5 +54,5 @@ mutation {
 =======
 
 {
-  "Authorization": "bearer " + token,
+  "Authorization": "bearer " + token
 }

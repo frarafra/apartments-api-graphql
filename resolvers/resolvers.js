@@ -1,7 +1,9 @@
 const { UserInputError, AuthenticationError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
+const { distance, point } = require('@turf/turf');
+const axios = require('axios')
 
-const { JWT_SECRET } = require('../config')
+const { JWT_SECRET, NOMINATIM_URL } = require('../config')
 const User = require('../models/user');
 const Apartment = require('../models/apartment');
 
@@ -27,6 +29,41 @@ module.exports = {
       }
       const user =  await User.findById(currentUser.id).populate('favorites', { name: 1 });
       return user.favorites.map(f => f.name);
+    },
+    nearestApartment: async (root, args, { currentUser }) => {
+      if (!currentUser) {
+        throw new AuthenticationError('Authentication required');
+      }
+
+      let apartmentsDistance = {};
+
+      for (const apartment of await Apartment.find({})) {
+        const address = `${apartment.address},${apartment.city},${apartment.country}`;
+        const { data: res } = await axios.get(`${NOMINATIM_URL}?q=${address}&polygon_geojson=1&format=jsonv2`);
+        const { lon, lat } = res[0];
+        const from = point([lon, lat]);
+        const to = point([args.locationX, args.locationY]);
+        const distKm = distance(from, to);
+
+        if (distKm <= args.distance) {
+          apartmentsDistance[apartment.name] = distKm;
+        }
+      }
+
+      let apartment;
+      if (apartmentsDistance) {
+        apartment = Object.entries(apartmentsDistance).reduce((a, b) => {
+          const { firstKey, firstValue } = a
+          const { secondKey, secondValue } = b
+
+          if (firstValue < secondValue) return b;
+          return a;
+        })
+
+        if (apartment) {
+          return Apartment.find({ name: apartment[0] });
+        }
+      }
     }
   },
   Mutation: {
