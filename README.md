@@ -8,7 +8,7 @@ API using GraphQL, implemented with Apollo GraphQL, MongoDB Atlas and Mongoose. 
 	npm install
 ```
 
-## Run Express server
+## Run server
 ```bash
 	npm start
 ```
@@ -26,5 +26,5 @@ http://localhost:4000/
 [Playground examples](playground.txt)
 
 ## Additional comments
-All users have the same password 'secret'
+All users have the same password 'secret'  
 Environment variables not git ignored for demonstration purposes
