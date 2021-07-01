@@ -1,5 +1,5 @@
 {
-  "name": "homeway",
+  "name": "apartments-api-graphql",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "test": "jest --verbose --runInBand"
   },
   "keywords": [],
-  "author": "Francesc Ara",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@turf/turf": "^6.4.0",
